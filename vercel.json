@@ -2,6 +2,30 @@
     "outputDirectory": "frontend/dist",
     "rewrites": [
         {
+            "source": "/api/auth/(.*)",
+            "destination": "/api/auth"
+        },
+        {
+            "source": "/api/baby/(.*)",
+            "destination": "/api/baby"
+        },
+        {
+            "source": "/api/feeding-records(.*)",
+            "destination": "/api/record?type=feeding"
+        },
+        {
+            "source": "/api/sleep-records(.*)",
+            "destination": "/api/record?type=sleep"
+        },
+        {
+            "source": "/api/diaper-records(.*)",
+            "destination": "/api/record?type=diaper"
+        },
+        {
+            "source": "/api/growth-records(.*)",
+            "destination": "/api/record?type=growth"
+        },
+        {
             "source": "/api/(.*)",
             "destination": "/api/$1"
         },
