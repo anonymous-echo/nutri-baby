@@ -29,11 +29,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             return await handleJoin(req, res, user);
         }
 
-        // 3. ID operations (PUT, DELETE, GET single)
-        // Check if url ends with a number or has ID param
-        const idMatch = url.match(/\/(\d+)$/) || (req.query.id ? [null, req.query.id] : null);
-        if (idMatch) {
-            const id = idMatch[1];
+        // Helper to extract string ID
+        const getId = (): string | null => {
+            const urlMatch = url.match(/\/(\d+)$/);
+            if (urlMatch) return urlMatch[1];
+            if (req.query.id) return Array.isArray(req.query.id) ? req.query.id[0] : req.query.id;
+            return null;
+        };
+
+        const id = getId();
+        if (id) {
             if (req.method === 'PUT') return await handleUpdate(req, res, user, id);
             if (req.method === 'DELETE') return await handleDelete(req, res, user, id);
             if (req.method === 'GET') return await handleGetOne(req, res, user, id);

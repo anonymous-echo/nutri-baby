@@ -13,7 +13,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (!user) return res.status(401).json({ message: 'Unauthorized' });
 
     // Determine Record Type from Query (injected by Rewrite)
-    const type = req.query.type as string;
+    const rawType = req.query.type;
+    const type = Array.isArray(rawType) ? rawType[0] : rawType;
     // Types: 'feeding', 'sleep', 'diaper', 'growth'
 
     if (!type) {
